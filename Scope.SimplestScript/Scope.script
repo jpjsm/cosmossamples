@@ -1,0 +1,11 @@
+﻿rs0 = 
+    EXTRACT Department:string, 
+            Employee:string,
+            Role:string
+    FROM @"/my/SampleData/ProjectMembers.txt"
+    USING DefaultTextExtractor();
+
+OUTPUT rs0 
+    TO @"/my/Output/ProjectMembers_Copy.txt"
+    USING DefaultTextOutputter();
+

@@ -1,0 +1,79 @@
+//REFERENCE @"/shares/searchDM/distrib/released/SLAPI/SearchLogApi.dll"; 
+//REFERENCE @"/shares/searchDM/distrib/released/SLAPI/Microsoft.Live.Json.dll"; 
+//REFERENCE @"/shares/searchDM/distrib/released/SLAPI/Serializer.exe"; 
+//USING MS.Internal.Bing.DataMining.SearchLogApi; 
+
+SlapiPageView =
+
+    VIEW "/shares/searchDM/distrib/released/SLAPI/SearchLogPageView.view"
+    PARAMS
+    (
+        Start = @"2015-03-01",
+        End = @"2015-03-01",
+        UseSample = false,
+        Dataset = @"Bing.com"
+    );
+
+rs0 =
+    SELECT     SessionId,
+               Market,
+               Vertical,
+               Query_RawQuery,
+               Request_Browser,
+               Request_Referrer,
+               Session_Duration,
+               User_Locale
+    WHERE 
+        MyHelpers.ContainsAnyCI(Query_RawQuery, 
+		"hdinsight", 
+		"bigdata", 
+		"big data", 
+		"hadoop",
+		"Microsoft Office",
+		"Microsoft Word",
+		"Microsoft Visio",
+		"Microsoft PowerPoint",
+		"Microsoft OneNote",
+		"Microsoft Excel",
+		"Microsoft Outlook",
+		"SharePoint",
+		"Visual Studio" ,
+		"Astronomy",
+		"Weather",
+		"Cooking",
+		"Pizza",
+		"Zoo",
+		"Vacation"		
+	) AND 
+        Query_IsAdult == false
+    FROM SlapiPageView;
+
+OUTPUT rs0
+    TO @"/my/bing_searches_x.tsv"
+    USING DefaultTextOutputter();
+
+#CS
+
+public static class MyHelpers
+{
+    public static bool ContainsCI(string source, string target)
+    {
+          return source.IndexOf(target, StringComparison.OrdinalIgnoreCase)>=0;
+    }
+
+    public static bool ContainsAnyCI(string source, params string [] targets)
+    {
+        foreach (string target in targets)
+        {
+            if (ContainsCI(source,target))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+}
+#ENDCS
+

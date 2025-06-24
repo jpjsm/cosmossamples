@@ -1,0 +1,2 @@
+﻿CREATE VIEW ColorsUntyped USING DemoResolvers.ColorsViewResolver("untyped");
+

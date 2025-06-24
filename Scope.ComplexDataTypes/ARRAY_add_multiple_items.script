@@ -1,0 +1,11 @@
+﻿MODULE @"/my/SampleData/SampleData.module";
+
+data = SampleData.Cities();
+
+data1 = 
+    SELECT State
+         , new ARRAY<string>(data.Cities) 
+                    {"Foo", "Bar"} AS Cities
+    FROM data ;
+
+OUTPUT data1 TO SSTREAM @"/my/Output.ss";

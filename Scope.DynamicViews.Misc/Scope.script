@@ -1,0 +1,22 @@
+﻿
+
+REFERENCE "DemoResolvers.dll";
+
+colors1 = 
+    VIEW @"/my/Demo/DynamicViews/ColorsUntyped.view" 
+    PARAMS (
+        Input = @"Colors.txt"
+    );
+
+colors2 = 
+    VIEW @"/my/Demo/DynamicViews/ColorsTyped.view" 
+    PARAMS 
+    ( 
+        Input = @"Colors.txt"
+    );
+
+OUTPUT colors1 
+TO SSTREAM @"/my/Demo/DynamicViews/output-colors-untyped.ss";
+
+OUTPUT colors2 
+TO SSTREAM @"/my/Demo/DynamicViews/output-colors-typed.ss";

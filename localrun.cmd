@@ -1,0 +1,11 @@
+SET VCROOT=%~dp0VCROOT\
+%SCOPEEXE% run -i %1 %2 %3 %4 %5 %6 %7 %8 %9 -INPUT_PATH %CD%;%VCROOT% -OUTPUT_PATH %VCROOT% -workingRoot %TEMP% -RESOURCE_PATH %CD%;%VCROOT%
+
+REM These maybe useful later
+REM SET SCRIPTPATH=%~dp0
+REM SET DRIVEROOT=%~d0
+REM SET SCOPESDK=%~d0\ScopeSDK
+REM SET SCOPEEXE=%~d0\ScopeSDK\scope.exe
+REM SET SAMPLESROOT=%~dp0..\
+
+    

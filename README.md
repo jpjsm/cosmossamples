@@ -1,1 +1,1 @@
-# cosmossamples
+# /repos/jpjsm@github/cosmossamples
